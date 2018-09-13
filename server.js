@@ -10,16 +10,20 @@ const passport = require('passport');
 const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 
-const localStrategy = require('./passport/local');
-const jwtStrategy = require('./passport/jwt');
-const jwt = require('jsonwebtoken');
+// const localStrategy = require('./passport/local');
+// const jwtStrategy = require('./passport/jwt');
+// const jwt = require('jsonwebtoken');
 
 const app = express();
 app.use(bodyParser.json());
 
 const registerRouter = require('./routes/register');
 const authRouter = require('./routes/auth');
-// const userRouter = require('./routes/users.route');
+const userRouter = require('./routes/users.route');
+const ratingRouter = require('./routes/rating.route');
+const tagRouter = require('./routes/tag.route');
+const companyRouter = require('./routes/company.route');
+const ramenRouter = require('./routes/ramen.route');
 
 app.use(
   morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
@@ -42,12 +46,16 @@ app.use('/api', registerRouter);
 app.use('/api', authRouter);
 
 // Endpoints below are protected
-passport.use(localStrategy);
-passport.use(jwtStrategy);
+// passport.use(localStrategy);
+// passport.use(jwtStrategy);
 
-// app.use('/api', userRouter);
+app.use('/api', userRouter);
+app.use('/api', ratingRouter);
+app.use('/api', ramenRouter);
+app.use('/api', tagRouter);
+app.use('/api', companyRouter);
 
-app.use(passport.authenticate('jwt', {session: false, failWithError: true}));
+// app.use(passport.authenticate('jwt', {session: false, failWithError: true}));
 
 function runServer(port = PORT) {
   const server = app

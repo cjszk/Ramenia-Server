@@ -16,12 +16,5 @@ TagSchema.set('toObject', {
   }
 });
 
-TagSchema.methods.validatePassword = function (password) {
-  return bcrypt.compare(password, this.password);
-}; 
-
-TagSchema.statics.hashPassword = function (password) {
-  return bcrypt.hash(password, 10);
-};
 
 module.exports = mongoose.model('Tag', TagSchema);

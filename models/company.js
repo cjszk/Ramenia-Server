@@ -7,7 +7,7 @@ const CompanySchema = new mongoose.Schema({
   name: {type: String, required: true},
   created: {type: Date, default: Date.now()},
   ramen: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ramen' }],
-  companyURL: {type: String}
+  companyUrl: {type: String, default: 'https://www.google.com/'}
 });
 
 CompanySchema.set('toObject', {
@@ -17,13 +17,5 @@ CompanySchema.set('toObject', {
     delete ret.__v;
   }
 });
-
-CompanySchema.methods.validatePassword = function (password) {
-  return bcrypt.compare(password, this.password);
-}; 
-
-CompanySchema.statics.hashPassword = function (password) {
-  return bcrypt.hash(password, 10);
-};
 
 module.exports = mongoose.model('Company', CompanySchema);

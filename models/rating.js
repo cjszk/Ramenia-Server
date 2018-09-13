@@ -18,12 +18,4 @@ RatingSchema.set('toObject', {
   }
 });
 
-RatingSchema.methods.validatePassword = function (password) {
-  return bcrypt.compare(password, this.password);
-}; 
-
-RatingSchema.statics.hashPassword = function (password) {
-  return bcrypt.hash(password, 10);
-};
-
 module.exports = mongoose.model('Rating', RatingSchema);
