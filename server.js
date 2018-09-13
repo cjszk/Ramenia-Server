@@ -10,9 +10,9 @@ const passport = require('passport');
 const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 
-// const localStrategy = require('./passport/local');
-// const jwtStrategy = require('./passport/jwt');
-// const jwt = require('jsonwebtoken');
+const localStrategy = require('./passport/local');
+const jwtStrategy = require('./passport/jwt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 app.use(bodyParser.json());
@@ -46,8 +46,8 @@ app.use('/api', registerRouter);
 app.use('/api', authRouter);
 
 // Endpoints below are protected
-// passport.use(localStrategy);
-// passport.use(jwtStrategy);
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 app.use('/api', userRouter);
 app.use('/api', ratingRouter);
