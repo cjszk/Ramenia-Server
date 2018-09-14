@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const Ramen = require('../models/ramen');
 const Rating = require('../models/rating');
 
-router.post('/post-rating/:id', (req, res, next) => {
+router.post('/rating/:id', (req, res, next) => {
 
     const { id } = req.params;
     const { overall, spicyMeter, review } = req.body;
@@ -33,7 +33,7 @@ router.post('/post-rating/:id', (req, res, next) => {
         .catch((err) => next(err));
 })
 
-router.put('/update-rating/:id', (req, res, next) => {
+router.put('/rating/:id', (req, res, next) => {
 
     const { id } = req.params;
     const { overall, spicyMeter, review } = req.body;

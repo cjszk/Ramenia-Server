@@ -7,12 +7,21 @@ const Ramen = require('../models/ramen');
 const Rating = require('../models/rating');
 const Company = require('../models/company');
 
-router.get('/ramen-data/:id', (req, res, next) => {
+router.get('/ramen', (req, res, next) => {
+    Ramen.find()
+        .populate('companyId')
+        .populate('tags')
+        .populate('ratings')
+        .then((result) => res.json(result))
+        .catch((err)=> next(err));
+})
+
+router.get('/ramen/:id', (req, res, next) => {
 
     const { id } = req.params;
 
     Ramen.findById(id)
-        .populate('company')
+        .populate('companyId')
         .populate('tags')
         .populate('ratings')
         .then((result) => {
@@ -24,9 +33,11 @@ router.get('/ramen-data/:id', (req, res, next) => {
 
 router.post('/ramen', (req, res, next) => {
 
-    const { name, company } = req.body;
+    const { name, companyId, image } = req.body;
 
-    const ramen = {name, company}
+    const ramen = {name, companyId, image}
+
+    console.log(req.body);
 
     let ramenId;
     let returnResult;
@@ -34,11 +45,11 @@ router.post('/ramen', (req, res, next) => {
         .then((result) => {
             ramenId = result.id;
             returnResult = result;
-            Company.findById(company)
+            Company.findById(companyId)
                 .then((result) => {
                     let newCompanyInfo = result;
                     newCompanyInfo.ramen.push(ramenId)
-                    Company.findByIdAndUpdate(company, newCompanyInfo)
+                    Company.findByIdAndUpdate(companyId, newCompanyInfo)
                     .then((result) => {
                         res.json(returnResult);
                     })

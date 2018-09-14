@@ -8,7 +8,8 @@ const RamenSchema = new mongoose.Schema({
   created: {type: Date, default: Date.now()},
   tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
   ratings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Rating' }],
-  company: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' }
+  companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
+  image: {type: String}
 });
 
 RamenSchema.set('toObject', {
