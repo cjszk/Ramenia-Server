@@ -36,4 +36,14 @@ router.post('/company', (req, res, next) => {
         .catch((err) => next(err));
 })
 
+router.delete('/company/:id', (req,res, next) => {
+    const { id } = req.params;
+
+    Company.findByIdAndRemove(id)
+        .then((result) => {
+            res.status(204).json();
+        })
+        .catch((err) => next(err))
+})
+
 module.exports = router;

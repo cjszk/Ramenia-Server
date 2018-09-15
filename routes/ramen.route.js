@@ -69,5 +69,15 @@ router.put('/ramen/:id', (req, res, next) => {
         .catch((err) => next(err))
 })
 
+router.delete('/ramen/:id', (req,res, next) => {
+    const { id } = req.params;
+
+    Ramen.findByIdAndRemove(id)
+        .then((result) => {
+            res.status(204).json();
+        })
+        .catch((err) => next(err))
+})
+
 
 module.exports = router;

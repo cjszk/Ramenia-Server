@@ -59,4 +59,14 @@ router.put('/remove-tags-ramen', (req, res, next) => {
         .catch((err) => next(err))
 })
 
+router.delete('/tags/:id', (req,res, next) => {
+    const { id } = req.params;
+
+    Tag.findByIdAndRemove(id)
+        .then((result) => {
+            res.status(204).json();
+        })
+        .catch((err) => next(err))
+})
+
 module.exports = router;
