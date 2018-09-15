@@ -62,7 +62,7 @@ router.post('/ramen', (req, res, next) => {
 router.put('/ramen/:id', (req, res, next) => {
     const { id } = req.params;
     const { name, companyId, image } = req.body;
-    const ramen = {name, companyid, image}
+    const ramen = {name, companyId, image}
 
     Ramen.findByIdAndUpdate(id, ramen)
         .then((result) => res.json(result))

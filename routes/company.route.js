@@ -36,6 +36,16 @@ router.post('/company', (req, res, next) => {
         .catch((err) => next(err));
 })
 
+router.put('/company/:id', (req, res, next) => {
+    const { id } = req.params;
+    const { name, companyUrl } = req.body;
+    const company = {name, companyUrl}
+
+    Company.findByIdAndUpdate(id, company)
+        .then((result) => res.json(result))
+        .catch((err) => next(err))
+})
+
 router.delete('/company/:id', (req,res, next) => {
     const { id } = req.params;
 

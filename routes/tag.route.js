@@ -28,6 +28,15 @@ router.post('/tags', (req, res, next) => {
 
 })
 
+router.put('/tags/:id', (req, res, next) => {
+    const {id} = req.params;
+    const {name} = req.body;
+
+    Tag.findByIdAndUpdate(id, {name})
+        .then((result) => res.json(result))
+        .catch((err) => next(err))
+})
+
 router.put('/tags-ramen', (req, res, next) => {
 
     const { tagId, ramenId } = req.body;
