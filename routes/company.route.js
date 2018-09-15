@@ -5,6 +5,12 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Company = require('../models/company');
 
+router.get('/company', (req, res, next) => {
+    Company.find()
+        .then((result) => res.json(result))
+        .catch((err) => next(err))
+})
+
 router.get('/company/:id', (req, res, next) => {
 
     const { id } = req.params;

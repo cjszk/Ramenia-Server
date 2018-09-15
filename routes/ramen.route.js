@@ -37,8 +37,6 @@ router.post('/ramen', (req, res, next) => {
 
     const ramen = {name, companyId, image}
 
-    console.log(req.body);
-
     let ramenId;
     let returnResult;
     Ramen.create(ramen)
@@ -59,6 +57,16 @@ router.post('/ramen', (req, res, next) => {
         })
         .catch((err) => next(err))
 
+})
+
+router.put('/ramen/:id', (req, res, next) => {
+    const { id } = req.params;
+    const { name, companyId, image } = req.body;
+    const ramen = {name, companyid, image}
+
+    Ramen.findByIdAndUpdate(id, ramen)
+        .then((result) => res.json(result))
+        .catch((err) => next(err))
 })
 
 
