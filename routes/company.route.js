@@ -7,6 +7,7 @@ const Company = require('../models/company');
 
 router.get('/company', (req, res, next) => {
     Company.find()
+        .populate('ramen')
         .then((result) => res.json(result))
         .catch((err) => next(err))
 })
